@@ -1,9 +1,9 @@
 CHIP zad1a {
-      IN x, y;
-      OUT out;
+        IN x, y;
+        OUT out;
 
-      PARTS:
-      Not(in = x, out = notX);
-      Not(in = y, out = notY);
-      Or(a = notX, b = notY, out = out);
+        PARTS:
+        Not(in = x, out = notX);
+        Not(in = y, out = notY);
+        Or(a = notX, b = notY, out = out);
 }
