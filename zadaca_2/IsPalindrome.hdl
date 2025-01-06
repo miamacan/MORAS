@@ -1,4 +1,5 @@
-CHIP IsPalindrome {
+CHIP IsPalindrome 
+{
     IN in[16];
     OUT out;
 
