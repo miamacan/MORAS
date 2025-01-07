@@ -1,4 +1,4 @@
-@32000
+@32767
 D = A
 @5
 M = D
@@ -9,38 +9,40 @@ D = A
 M = D
 
 (LP)
-@12
+@14
 D = M
 @5
-D = D - A
+D = D-A
 @ED
 D; JGE
 
+@14
+D = M
+@0
+A = A+D
+D = M
+
+@SK
+D; JLE
+
 @5
 A = M
-D = D - A
+D = D-A
 @SK
 D; JGE
 
-@12
+@14
 D = M
 @0
-A = A + D
+A = A+D
 D = M
 @5
 M = D
 
-@12
-M = M + 1
-@0
-A = A + D
-D = M
-
 (SK)
-@12
-M = M + 1
+@14
+M = M+1
 @LP
 0; JMP
-
 (ED)
 0; JMP
