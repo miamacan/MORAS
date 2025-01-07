@@ -5,21 +5,21 @@ M = D
 
 @0
 D = A
-@12
+@14
 M = D
 
 (LP)
 @14
 D = M
 @5
-D = D-A
+D = D - A
 @ED
 D; JGE
 
 @14
 D = M
 @0
-A = A+D
+A = A + D 
 D = M
 
 @SK
