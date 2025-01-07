@@ -1,55 +1,46 @@
-@i
-M=0
-
+@32000
+D = A
 @5
-M=0
+M = D
 
-@START
-0;JMP
+@0
+D = A
+@12
+M = D
 
-(LOOP)
-@i
+(LP)
+@12
 D = M
-@4
+@5
 D = D - A
-@END
-D;JGT
-
-@i
-A = M
-D = M
-@CHECK_POSITIVE
-D;JLE
+@ED
+D; JGE
 
 @5
-D = M
-@SKIP_UPDATE
-D;JEQ
-
-@i
 A = M
+D = D - A
+@SK
+D; JGE
+
+@12
 D = M
-@5
-D = D-M
-@CHECK_MIN
-D;JGE
-
-@5
-M = D
-
-(SKIP_UPDATE)
-@i
-A = M
+@0
+A = A + D
 D = M
 @5
 M = D
 
-(CHECK_POSITIVE)
-@i
+@12
 M = M + 1
-@START
-0;JMP
+@0
+A = A + D
+D = M
 
-(END)
-@END
-0;JMP
+(SK)
+@12
+M = M + 1
+@LP
+0; JMP
+
+(ED)
+0; JMP
