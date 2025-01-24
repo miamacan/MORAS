@@ -1,0 +1,50 @@
+push constant 1
+push constant 2
+push constant 3
+call Min.min 3
+pop static 4
+
+label END
+goto END
+
+
+function Min.min 0
+
+    push argument 0
+    push argument 1
+    lt
+    if-goto ARG0_SMALLER
+
+    push argument 1
+    push argument 0
+    lt
+    if-goto ARG1_SMALLER
+
+    push argument 0
+    push argument 2
+    lt
+    if-goto ARG2_SMALLER
+
+    label ARG0_SMALLER
+    push argument 2
+    push argument 0
+    lt
+    if-goto ARG0_AND_ARG2
+
+    label ARG1_SMALLER
+    push argument 1
+    push argument 3
+    lt
+    if-goto ARG1_AND_ARG2
+
+    label ARG2_SMALLER
+    push argument 1
+    return
+
+    label ARG0_AND_ARG2
+    push argument 2
+    return
+
+    label ARG1_AND_ARG3
+    push argument 0
+    return

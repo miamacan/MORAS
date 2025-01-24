@@ -1,0 +1,38 @@
+push constant 6
+call Lucas.lucas 1
+pop static 3
+
+label END
+goto END
+
+function Lucas.lucas 1
+    push argument 0
+    push constant 1
+    eq
+    if-goto BASE_ONE
+
+    push argument 0
+    push constant 2
+    eq
+    if-goto BASE_TWO
+
+    push argument 0
+    push constant 1
+    sub
+    call Lucas.lucas 1
+
+    push argument 0
+    push constant 3
+    sub
+    call Lucas.lucas 1
+
+    add
+    return
+
+    label BASE_ONE
+    push constant 1
+    return
+
+    label BASE_TWO
+    push constant 3
+    return
