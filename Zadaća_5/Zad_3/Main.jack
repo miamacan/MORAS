@@ -1,5 +1,5 @@
-class Main{
-    function void main(){
+class Main {
+    function void main() {
 
         do Graph.draw_graph();
 
