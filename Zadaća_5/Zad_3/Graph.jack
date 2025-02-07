@@ -1,11 +1,11 @@
-class Graph{
+class Graph {
 
     function int f (int x){
         return (x*x);
     }
 
 
-    function void draw_graph (){
+    function void draw_graph () {
         var int xi, i, j, fx;
         var Array x, y;
 
@@ -19,11 +19,11 @@ class Graph{
         do Screen.drawLine(0,128,255,128);
         do Screen.drawLine(128,0,128,255);
         
-        while(xi < 33){
+        while(xi < 33) {
             let x[i] = xi;
             let fx = Graph.f(xi);
 
-            if((fx > -33) & (fx < 33)){
+            if((fx > -33) & (fx < 33)) {
                 let y[i] = fx;
                 do Screen.drawPixel((128 + xi), (128 - fx));
             }
@@ -32,8 +32,8 @@ class Graph{
             let i = i + 1;
         }
         
-        while(j < 64){
-            if((y[j] = Graph.f(x[j])) & (y[j+1] = Graph.f(x[j+1]))){
+        while(j < 64) {
+            if((y[j] = Graph.f(x[j])) & (y[j+1] = Graph.f(x[j+1]))) {
                 do Screen.drawLine(128 + x[j], 128 - y[j], 128 + x[j+1], 128 - y[j+1]);
             }
 
