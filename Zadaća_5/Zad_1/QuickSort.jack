@@ -1,4 +1,3 @@
-
 class QuickSort {
 
     function void swap(Array A, int i, int j) {
