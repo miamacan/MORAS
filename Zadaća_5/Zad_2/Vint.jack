@@ -1,4 +1,4 @@
-class Vint{
+class Vint {
     field int capacity;
     field Array vector;
     
@@ -6,7 +6,7 @@ class Vint{
         return(capacity);
     }
 
-    function int power(int x, int n){
+    function int power(int x, int n) {
         var int ret, temp;
 
         let ret = 1;
@@ -20,7 +20,7 @@ class Vint{
         return ret;
     }
 
-    constructor Vint new(int n){
+    constructor Vint new(int n) {
         if(n < 0){
             let capacity = 1;
             let vector = Array.new(capacity);
@@ -33,7 +33,7 @@ class Vint{
         return this;
     }
 
-    method void set(int k, int v){
+    method void set(int k, int v) {
         if((k = capacity) | (k > capacity) | (k < 0)){
             do Output.printString("Invalid input");
             do Output.println("");
@@ -44,7 +44,7 @@ class Vint{
         return;
     }
 
-    method int get(int k){
+    method int get(int k) {
         if((k = capacity) | (k > capacity) | (k < 0)){
             do Output.printString("Invalid input");
             do Output.println("");
@@ -54,7 +54,7 @@ class Vint{
         return vector[k];
     }
 
-    method void resize(int m){
+    method void resize(int m) {
         var int minimum, i;
         var Array temp;
         
@@ -62,14 +62,14 @@ class Vint{
         let i = 0;
         let temp = Array.new(Vint.power(2,m));
 
-        if(m < 0){
+        if(m < 0) {
             do vector.dispose();
             let capacity = 1;
             let vector = Array.new(capacity);
             return;
         }
 
-        while(i < minimum){
+        while(i < minimum) {
             let temp[i] = vector[i];
             let i = i + 1;
         }
@@ -81,17 +81,17 @@ class Vint{
         return;
     }
 
-    function bool is_eq(Vint v1, Vint v2){
+    function bool is_eq(Vint v1, Vint v2) {
         var int i;
 
         let i = 0;
 
-        if(~(v1.len() = v2.len())){
+        if(~(v1.len() = v2.len())) {
             return false;
         }
 
-        while(i < v1.len()){
-            if(~(v1.get(i) = v2.get(i))){
+        while(i < v1.len()) {
+            if(~(v1.get(i) = v2.get(i))) {
                 return false;
             }
             let i = i + 1;
@@ -100,7 +100,7 @@ class Vint{
         return true;
     }
 
-    function bool elems(Vint v1, Vint v2){
+    function bool elems(Vint v1, Vint v2) {
         var int i,j;
         var Array v1_copy, v2_copy;
         
@@ -109,11 +109,11 @@ class Vint{
         let v1_copy = Array.new(v1.len());
         let v2_copy = Array.new(v2.len());
 
-        if(~(v1.len() = v2.len())){
+        if(~(v1.len() = v2.len())) {
             return false;
         }
 
-        while(i < v1.len()){
+        while(i < v1.len()) {
             let v1_copy[i] = v1.get(i);
             let v2_copy[i] = v2.get(i);
             let i = i + 1;
@@ -122,7 +122,7 @@ class Vint{
         do quicksort.qsort(v1_copy, 0, v1.len() - 1);
         do quicksort.qsort(v2_copy, 0, v2.len() - 1);
 
-        while(j < v1.len()){
+        while(j < v1.len()) {
             if(~(v1_copy[j] = v2_copy[j])){
                 return false;
             }
@@ -132,11 +132,11 @@ class Vint{
         return true;
     }
 
-    method void print(){
+    method void print() {
         var int i;
         let i = 0;
 
-        while(i < capacity){
+        while(i < capacity) {
             do Output.printInt(vector[i]);
             do Output.printString(" ");
             let i = i + 1;
