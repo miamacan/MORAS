@@ -1,0 +1,244 @@
+class Mat {
+    field Array matrix;
+    field int rows, cols;
+
+    // stvara novu matricu s danim poljem i dimenzijama
+    constructor Mat new(Array m, int r, int c) {
+        let matrix = m;
+        let rows = r;
+        let cols = c;
+        return this;
+    }
+
+    // vraca polje matrice
+    method Array getMatrix() {
+        return matrix;
+    }
+
+    // vraca broj redaka
+    method int getRows() {
+        return rows;
+    }
+
+    // vraca broj stupaca
+    method int getCols() {
+        return cols;
+    }
+
+    // ispisuje elemente matrice
+    method void print() {
+        var int i, j;
+        let i = 0;
+        do Output.printString("Mat: ");
+        do Output.println();
+        while(i < rows) {
+            let j = 0;
+            while(j < cols) {
+                do Output.printInt(matrix[i * cols + j]);
+                do Output.printString(" ");
+                let j = j + 1;
+            }
+            do Output.println();
+            let i = i + 1;
+        }
+        do Output.println();
+        return;
+    }
+
+    // zbrajanje matrica
+    function Mat add(Mat m1, Mat m2) {
+        var int r1, c1, r2, c2, i, j;
+        var Array m1Arr, m2Arr, newArr;
+        var Mat newMat;
+
+        let r1 = m1.getRows();
+        let c1 = m1.getCols();
+        let r2 = m2.getRows();
+        let c2 = m2.getCols();
+
+        if (~(r1 = r2) | ~(c1 = c2)) {
+            do Output.printString("Matrice moraju biti istih dimenzija za zbrajanje.");
+            do Output.println();
+            return null;
+        }
+
+        let m1Arr = m1.getMatrix();
+        let m2Arr = m2.getMatrix();
+        let newArr = Array.new(r1 * c1);
+        let i = 0;
+
+        while (i < r1) {
+            let j = 0;
+            while (j < c1) {
+                let newArr[i * c1 + j] = m1Arr[i * c1 + j] + m2Arr[i * c1 + j];
+                let j = j + 1;
+            }
+            let i = i + 1;
+        }
+
+        let newMat = Mat.new(newArr, r1, c1);
+        return newMat;
+    }
+
+    // oduzimanje matrica
+    function Mat subtract(Mat m1, Mat m2) {
+        var int r1, c1, r2, c2, i, j;
+        var Array m1Arr, m2Arr, newArr;
+        var Mat newMat;
+
+        let r1 = m1.getRows();
+        let c1 = m1.getCols();
+        let r2 = m2.getRows();
+        let c2 = m2.getCols();
+
+        if (~(r1 = r2) | ~(c1 = c2)) {
+            do Output.printString("Matrice moraju biti istih dimenzija za oduzimanje.");
+            do Output.println();
+            return null;
+        }
+
+        let m1Arr = m1.getMatrix();
+        let m2Arr = m2.getMatrix();
+        let newArr = Array.new(r1 * c1);
+        let i = 0;
+
+        while (i < r1) {
+            let j = 0;
+            while (j < c1) {
+                let newArr[i * c1 + j] = m1Arr[i * c1 + j] - m2Arr[i * c1 + j];
+                let j = j + 1;
+            }
+            let i = i + 1;
+        }
+
+        let newMat = Mat.new(newArr, r1, c1);
+        return newMat;
+    }
+
+    // vraca trag matrice (zbroj elemenata na glavnoj dijagonali)
+    method int trace() {
+        var int i, sum;
+        let sum = 0;
+        if (rows = cols) {
+            let i = 0;
+            while(i < rows) {
+                let sum = sum + matrix[i * cols + i];
+                let i = i + 1;
+            }
+            return sum;
+        } else {
+            do Output.printString("Matrica mora biti kvadratna za racunanje traga.");
+            do Output.println();
+            return 0;
+        }
+    }
+
+    // mnozenje matrice s drugom matricom
+    function Mat prodMat(Mat m1, Mat m2) {
+        var Mat newMat;
+        var Array m1Arr, m2Arr, newArr;
+        var int r1, c1, r2, c2, i, j, k, sum;
+
+        let r1 = m1.getRows();
+        let c1 = m1.getCols();
+        let r2 = m2.getRows();
+        let c2 = m2.getCols();
+
+        if (~(c1 = r2)) {
+            do Output.printString("Broj stupaca prve matrice mora biti jednak broju redaka druge.");
+            do Output.println();
+            return null;
+        }
+
+        let m1Arr = m1.getMatrix();
+        let m2Arr = m2.getMatrix();
+        let newArr = Array.new(r1 * c2);
+        let i = 0;
+        while(i < r1) {
+            let j = 0;
+            while(j < c2) {
+                let sum = 0;
+                let k = 0;
+                while(k < c1) {
+                    let sum = sum + Math.multiply(m1Arr[i * c1 + k], m2Arr[k * c2 + j]);
+                    let k = k + 1;
+                }
+                let newArr[i * c2 + j] = sum;
+                let j = j + 1;
+            }
+            let i = i + 1;
+        }
+        let newMat = Mat.new(newArr, r1, c2);
+        return newMat;
+    }
+
+    // mnozenje matrice s vektorom
+    function Vec prodVec(Mat m, Vec v) {
+        var Vec newVec;
+        var Array mArr, vArr, newArr;
+        var int r, c, dim, i, j, sum;
+
+        let r = m.getRows();
+        let c = m.getCols();
+        let dim = v.get_dim(); // Promijenjeno iz getDim() u get_dim()
+
+        if (~(c = dim)) {
+            do Output.printString("Broj stupaca matrice mora biti jednak dimenziji vektora.");
+            do Output.println();
+            return null;
+        }
+
+        let mArr = m.getMatrix();
+        let vArr = v.get_vec(); // Promijenjeno iz getVector() u get_vec()
+        let newArr = Array.new(r);
+        let i = 0;
+        while(i < r) {
+            let sum = 0;
+            let j = 0;
+            while(j < c) {
+                let sum = sum + Math.multiply(mArr[i * c + j], vArr[j]);
+                let j = j + 1;
+            }
+            let newArr[i] = sum;
+            let i = i + 1;
+        }
+        let newVec = Vec.new(newArr, r);
+        return newVec;
+    }
+
+    // transponiranje matrice
+    method Mat tr() {
+        var Mat newMat;
+        var Array newArr;
+        var int i, j;
+        let i = 0;
+        let newArr = Array.new(rows * cols);
+        while(i < rows) {
+            let j = 0;
+            while(j < cols) {
+                let newArr[j * rows + i] = matrix[i * cols + j];
+                let j = j + 1;
+            }
+            let i = i + 1;
+        }
+        let newMat = Mat.new(newArr, cols, rows);
+        return newMat;
+    }
+
+    // determinanta 2x2 matrice
+    method int det() {
+        if (~(rows = 2) | ~(cols = 2)) {
+            do Output.printString("Determinanta je implementirana samo za 2x2 matrice.");
+            do Output.println();
+            return 0;
+        }
+        return Math.multiply(matrix[0], matrix[3]) - Math.multiply(matrix[1], matrix[2]);
+    }
+
+    // oslobađa memoriju matrice
+    method void dispose() {
+        do matrix.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+}

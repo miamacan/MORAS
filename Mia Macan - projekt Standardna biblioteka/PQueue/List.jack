@@ -1,0 +1,136 @@
+class List {
+    field Node head, tail;
+    field int size;
+
+    // stvara praznu listu
+    constructor List new() {
+        let head = null;
+        let tail = null;
+        let size = 0;
+        return this;
+    }
+
+    // dodaje element na pocetak
+    method void insertFront(int val) {
+        var Node node;
+        let node = Node.new(val);
+        if (head = null) {
+            let head = node;
+            let tail = node;
+        } else {
+            do head.setPrev(node);
+            do node.setNext(head);
+            let head = node;
+        }
+        let size = size + 1;
+        return;
+    }
+
+    // dodaje element na kraj
+    method void insertBack(int val) {
+        var Node node;
+        let node = Node.new(val);
+        if (tail = null) {
+            let head = node;
+            let tail = node;
+        } else {
+            do tail.setNext(node);
+            do node.setPrev(tail);
+            let tail = node;
+        }
+        let size = size + 1;
+        return;
+    }
+
+    // vraca velicinu
+    method int size() {
+        return size;
+    }
+
+    // vraca head
+    method Node getHead() {
+        return head;
+    }
+
+    // vraca tail
+    method Node getTail() {
+        return tail;
+    }
+
+    method void clear() {
+        var Node node, temp;
+        let node = head;
+        while (~(node = null)) {
+            let temp = node.getNext();
+            do node.dispose();
+            let node = temp;
+        }
+        let head = null;
+        let tail = null;
+        let size = 0;
+        return;
+    }
+
+    method void print() {
+        var Node node;
+        let node = head;
+        if (node = null) {
+            do Output.printString("Red je prazan.");
+            do Output.println();
+        } else {
+            while (~(node = null)) {
+                do Output.printInt(node.getValue());
+                do Output.printString(" ");
+                let node = node.getNext();
+            }
+            do Output.println();
+        }
+        return;
+    }
+
+    // brise prvi element liste
+    method void removeHead() {
+        var Node oldHead;
+        if (size = 0) {
+            return;
+        }
+        let oldHead = head;
+        let head = head.getNext();
+        if (~(head = null)) {
+            do head.setPrev(null);
+        } else {
+            let tail = null;
+        }
+        do oldHead.dispose();
+        let size = size - 1;
+        return;
+    }
+
+    // ubacuje element na zadanu poziciju
+    method void insert_elem(int elem, int pos) {
+        var Node currentNode, newNode, nextNode;
+        var int i;
+        let currentNode = head;
+        let i = 0;
+        while (i < pos) {
+            let currentNode = currentNode.getNext();
+            let i = i + 1;
+        }
+        let newNode = Node.new(elem);
+        let nextNode = currentNode.getNext();
+        do newNode.setPrev(currentNode);
+        do currentNode.setNext(newNode);
+        if (~(nextNode = null)) {
+            do newNode.setNext(nextNode);
+            do nextNode.setPrev(newNode);
+        }
+        let size = size + 1;
+        return;
+    }
+
+    method void dispose() {
+        do clear();
+        do Memory.deAlloc(this);
+        return;
+    }
+}

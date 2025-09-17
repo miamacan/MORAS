@@ -1,0 +1,113 @@
+class Vector {
+    field Array arr;
+    field int size, capacity;
+
+    // stvara novi prazan vektor
+    constructor Vector new() {
+        let capacity = 1;
+        let size = 0;
+        let arr = Array.new(1);
+        return this;
+    }
+
+    // vraca br. elemenata u vektoru
+    method int size() {
+        return size;
+    }
+
+    // vraca element na odredenom indeksu
+    method int get(int index) {
+        if ((index > -1) & (index < size)) {
+            return arr[index];
+        } else {
+            do Output.printString("Indeks nije valjan.");
+        }
+        return 0;
+    }
+
+    // postavlja novu vrijednost na odredenom indeksu
+    method void set(int index, int value) {
+        if ((index > -1) & (index < size)) {
+            let arr[index] = value;
+        } else {
+            do Output.printString("Indeks nije valjan.");
+        }
+        return;
+    }
+        
+    // mijenja kapacitet vektora (povecava ili smanjuje)
+    method void resize(int newSize) {
+        var Array newArr;
+        var int i;
+
+        let newArr = Array.new(newSize);
+        let i = 0;
+        while (i < size & i < newSize) {
+            let newArr[i] = arr[i];
+            let i = i + 1;
+        }
+
+        do arr.dispose();
+        let arr = newArr;
+        let capacity = newSize;
+        let size = i;
+        return;
+    }
+
+    // dodaje element na kraj vektora
+    method void pushBack(int value) {
+        var Array newArr;
+        var int i;
+
+        if (size = capacity) {
+            let newArr = Array.new(capacity * 2);
+            let i = 0;
+            while (i < size) {
+                let newArr[i] = arr[i];
+                let i = i + 1;
+            }
+            do arr.dispose();
+            let arr = newArr;
+            let capacity = capacity * 2;
+        }
+
+        let arr[size] = value;
+        let size = size + 1;
+        return;
+    }
+
+    // ispisuje sve elemente vektora
+    method void print() {
+        var int i;
+        let i = 0;
+        do Output.printString("Vektor: ");
+        while (i < size) {
+            do Output.printInt(arr[i]);
+            do Output.printString(" ");
+            let i = i + 1;
+        }
+        do Output.println();
+        do Output.printString("Size: ");
+        do Output.printInt(size);
+        do Output.printString(", Capacity: ");
+        do Output.printInt(capacity);
+        do Output.println();
+        return;
+    }
+    
+    // brise sve iz vektora
+    method void clear() {
+        do arr.dispose();
+        let arr = Array.new(10);
+        let capacity = 10;
+        let size = 0;
+        return;
+    }
+    
+    // oslobada svu memoriju koju vektor koristi
+    method void dispose() {
+        do arr.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+}

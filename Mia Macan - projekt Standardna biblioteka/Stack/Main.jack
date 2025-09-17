@@ -1,0 +1,36 @@
+class Main {
+    function void main() {
+        var Stack s;
+        var int val;
+
+        let s = Stack.new(5);
+
+        do s.push(14);
+        do s.push(11);
+        do s.push(19);
+        do s.push(16);
+        do s.print();
+        
+        do Output.printString("Popam dva elementa:");
+        let val = s.pop();
+        do Output.printInt(val);
+        do Output.printString(" ");
+        let val = s.pop();
+        do Output.printInt(val);
+        do Output.println();
+        do s.print();
+
+        do Output.printString("Element na vrhu: ");
+        do Output.printInt(s.peek());
+        do Output.println();
+        
+        do Output.printString("Brisem stog.");
+        do Output.println();
+        do s.clear();
+        do s.print();
+        
+        do s.dispose();
+        
+        return;
+    }
+}

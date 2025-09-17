@@ -1,0 +1,182 @@
+class BST {
+    field Node root;
+    field int size;
+    
+    // stvara novo prazno stablo
+    constructor BST new() {
+        let root = null;
+        let size = 0;
+        return this;
+    }
+
+    // vraca br. elemenata u stablu
+    method int size() {
+        return size;
+    }
+    
+    // dodaje element u stablo
+    method void insert(int value) {
+        var Node newNode, current, parent;
+        let newNode = Node.new(value);
+        let size = size + 1;
+        
+        if (root = null) {
+            let root = newNode;
+            return;
+        }
+
+        let current = root;
+        let parent = null;
+        
+        while (~(current = null)) {
+            let parent = current;
+            if (value < current.getValue()) {
+                let current = current.getLeft();
+            } else {
+                let current = current.getRight();
+            }
+        }
+        
+        do newNode.setParent(parent);
+        if (value < parent.getValue()) {
+            do parent.setLeft(newNode);
+        } else {
+            do parent.setRight(newNode);
+        }
+        return;
+    }
+    
+    // pronalazi element u stablu
+    method Node search(int value) {
+        var Node current;
+        let current = root;
+        
+        while (~(current = null)) {
+            if (value = current.getValue()) {
+                return current;
+            } else {
+                if (value < current.getValue()) {
+                    let current = current.getLeft();
+                } else {
+                    let current = current.getRight();
+                }
+            }
+        }
+        return null;
+    }
+
+    // brise element iz stabla
+    method void delete(int value) {
+        var Node nodeToDelete, parentNode, successor, temp;
+        let nodeToDelete = search(value);
+
+        if (nodeToDelete = null) {
+            do Output.printString("Trazeni element ne postoji u stablu!");
+            do Output.println();
+            return;
+        }
+
+        let parentNode = nodeToDelete.getParent();
+
+        // slucaj 1: cvor nema djece
+        if ((nodeToDelete.getLeft() = null) & (nodeToDelete.getRight() = null)) {
+            if (nodeToDelete = root) {
+                let root = null;
+            } else {
+                if (parentNode.getLeft() = nodeToDelete) {
+                    do parentNode.setLeft(null);
+                } else {
+                    do parentNode.setRight(null);
+                }
+            }
+            do nodeToDelete.dispose();
+            let size = size - 1;
+            return;
+        }
+
+        // slucaj 2: cvor ima jedno dijete
+        if ((nodeToDelete.getLeft() = null) | (nodeToDelete.getRight() = null)) {
+            if (nodeToDelete.getLeft() = null) {
+                let temp = nodeToDelete.getRight();
+            } else {
+                let temp = nodeToDelete.getLeft();
+            }
+            if (nodeToDelete = root) {
+                let root = temp;
+                do temp.setParent(null);
+            } else {
+                if (parentNode.getLeft() = nodeToDelete) {
+                    do parentNode.setLeft(temp);
+                } else {
+                    do parentNode.setRight(temp);
+                }
+                do temp.setParent(parentNode);
+            }
+            do nodeToDelete.dispose();
+            let size = size - 1;
+            return;
+        }
+        
+        // slucaj 3: cvor ima dvoje djece
+        if (~(nodeToDelete.getLeft() = null) & ~(nodeToDelete.getRight() = null)) {
+            let successor = nodeToDelete.getRight();
+            while (~(successor.getLeft() = null)) {
+                let successor = successor.getLeft();
+            }
+            do nodeToDelete.setValue(successor.getValue());
+            do delete(successor.getValue());
+        }
+        return;
+    }
+    
+    // brise stablo
+    method void clear() {
+        do BST.disposeTree(root);
+        let root = null;
+        let size = 0;
+        return;
+    }
+
+    // pomocna funkcija za oslobadanje memorije stabla
+    function void disposeTree(Node node) {
+        if (node = null) {
+            return;
+        }
+        do BST.disposeTree(node.getLeft());
+        do BST.disposeTree(node.getRight());
+        do node.dispose();
+        return;
+    }
+
+    // oslobada memoriju cijelog stabla
+    method void dispose() {
+        do BST.disposeTree(root);
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    // ispisuje elemente stabla (inorder)
+    method void print() {
+        if (root = null) {
+            do Output.printString("Stablo je prazno!");
+            do Output.println();
+            return;
+        }
+        do Output.printString("Elementi stabla: ");
+        do BST.inorderPrint(root);
+        do Output.println();
+        return;
+    }
+
+    // pomocna funkcija za inorder ispis
+    function void inorderPrint(Node node) {
+        if (node = null) {
+            return;
+        }
+        do BST.inorderPrint(node.getLeft());
+        do Output.printInt(node.getValue());
+        do Output.printString(" ");
+        do BST.inorderPrint(node.getRight());
+        return;
+    }
+}

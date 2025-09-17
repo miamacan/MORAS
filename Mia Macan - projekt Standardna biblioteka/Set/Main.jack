@@ -1,0 +1,46 @@
+class Main {
+    function void main() {
+        var Set s;
+        var int result;
+
+        let s = Set.new();
+
+        do Output.println();
+        do s.insert(10);
+        do s.insert(20);
+        do s.insert(30);
+        do s.insert(40);
+        do s.print();
+        do Output.println();
+        do Output.println();
+        
+        do Output.printString("Brisem postojeci element 20.");
+        do Output.println();
+        do s.delete(20);
+        do s.print();
+        do Output.println();
+        
+        do Output.printString("Pokusavam obrisati nepostojeci element 99.");
+        do Output.println();
+        do s.delete(99);
+        do Output.println();
+        
+        do Output.printString("Provjeravam postoji li element 30: ");
+        if (s.exists(30)) {
+            do Output.printString("DA");
+        } else {
+            do Output.printString("NE");
+        }
+        do Output.println();
+        do Output.println();
+
+        do Output.printString("Brisem cijeli skup.");
+        do Output.println();
+        do s.clear();
+        do s.print();
+        
+        do s.dispose();
+        
+        return;
+    }
+}

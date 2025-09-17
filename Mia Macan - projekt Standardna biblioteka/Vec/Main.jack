@@ -1,0 +1,68 @@
+class Main {
+	function void main() {
+		var Array a1, a2;
+		var Vec v1, v2, v3, v4, v5;
+		var int scalarRes, normRes;
+		
+		let a1 = Array.new(3);
+		let a2 = Array.new(3);
+
+		// Novi brojevi za vektor 1
+		let a1[0] = 5;
+		let a1[1] = -1;
+		let a1[2] = 4;
+
+		// Novi brojevi za vektor 2
+		let a2[0] = 2;
+		let a2[1] = 7;
+		let a2[2] = 3;
+		
+		let v1 = Vec.new(a1, 3);
+		let v2 = Vec.new(a2, 3);
+		
+		do Output.printString("Vektor 1:");
+		do Output.println();
+		do v1.print();
+		do Output.printString("Vektor 2:");
+		do Output.println();
+		do v2.print();
+		
+		do Output.printString("Zbrajanje vektora:");
+		do Output.println();
+		let v3 = Vec.add(v1, v2);
+		do v3.print();
+
+		do Output.printString("Oduzimanje vektora:");
+		do Output.println();
+		let v4 = Vec.sub(v1, v2);
+		do v4.print();
+		
+		do Output.printString("Skalarni produkt:");
+		do Output.println();
+		let scalarRes = Vec.scalarProduct(v1, v2);
+		do Output.printInt(scalarRes);
+		do Output.println();
+		do Output.println();
+		
+		do Output.printString("Vektorski produkt:");
+		do Output.println();
+		let v5 = Vec.vecProduct(v1, v2);
+		do v5.print();
+		
+		do Output.printString("Norma vektora 1:");
+		do Output.println();
+		let normRes = v1.norm();
+		do Output.printInt(normRes);
+		do Output.println();
+		
+		do v1.dispose();
+		do v2.dispose();
+		do v3.dispose();
+		do v4.dispose();
+		do v5.dispose();
+		do a1.dispose();
+		do a2.dispose();
+		
+		return;
+	}
+}

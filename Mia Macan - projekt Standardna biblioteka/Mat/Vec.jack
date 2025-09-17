@@ -1,0 +1,182 @@
+class Vec {
+    field Array vector;
+    field int dim;
+
+    // stvara novi prazan vec
+    constructor Vec new(Array v, int n) {
+        let vector = v;
+        let dim = n;
+        return this;
+    }
+	
+	
+	// dohvacanje vrijednosti vektora
+	method Array get_vec() {
+        return vector;
+    }
+	
+
+	// dohvacanje dimenzije vektora
+    method int get_dim() {
+        return dim;
+    }
+
+
+    // vektorski produkt
+    function Vec vecProduct(Vec v1, Vec v2) {
+        var Vec V;
+        var Array vec1, vec2, vec3;
+        var int dim1, dim2, dim3; 
+
+        let vec1 = v1.get_vec();
+        let vec2 = v2.get_vec();
+		
+        let dim1 = v1.get_dim();
+        let dim2 = v2.get_dim();
+
+        if((dim1 < 3) | (dim2 < 3)) {
+            do Output.printString("Dimenzija je manja od 3.");
+            do Output.println();
+            return null;
+        }
+		
+		if((dim1 > 3) | (dim2 > 3)) {
+            do Output.printString("Dimenzija je veca od 3.");
+            do Output.println();
+            return null;
+        }
+		
+        let dim3 = 3;
+        let vec3 = Array.new(dim3);
+        
+        let vec3[0] = Math.multiply(vec1[1], vec2[2]) - Math.multiply(vec1[2], vec2[1]);
+        let vec3[1] = Math.multiply(vec1[2], vec2[0]) - Math.multiply(vec1[0], vec2[2]);
+        let vec3[2] = Math.multiply(vec1[0], vec2[1]) - Math.multiply(vec1[1], vec2[0]);
+
+        let V = Vec.new(vec3, dim3);
+        return V;
+    }
+
+
+    // skalarni produkt
+    function int scalarProduct(Vec v1, Vec v2) {	
+        var int vector1, vector2, dim1, dim2, res, i;
+
+        let vector1 = v1.get_vec();
+        let vector2 = v2.get_vec();
+		
+        let dim1 = v1.get_dim();
+        let dim2 = v2.get_dim();
+
+        if(dim1 = dim2) {
+            while(i < dim1) {
+                let res = res + Math.multiply(vector1[i], vector2[i]);
+                let i = i + 1;
+            }
+            return res;
+        }else {
+            do Output.printString("Vektori nisu iste duljine.");
+            do Output.println();
+            return 0;
+        }
+    }
+
+
+    // zbrajanje dva vektora
+    function Vec add(Vec v1, Vec v2) {
+	
+        var Vec V;
+        var Array vec1, vec2, vector3;
+        var int i, dim1, dim2, dim3;
+
+        let vec1 = v1.get_vec();
+        let vec2 = v2.get_vec();
+		
+        let dim1 = v1.get_dim();
+        let dim2 = v2.get_dim();
+
+        if(dim1 = dim2) {
+            let vector3 = Array.new(dim1);
+            
+            while(i < dim1) {
+                let vector3[i] = vec1[i] + vec2[i];
+                let i = i + 1;
+            }
+            let V = Vec.new(vector3, dim1);
+            return V;                       
+        } else {
+			do Output.printString("Vektori nisu iste duljine.");
+			return null;
+		}
+    }
+	
+	
+	// oduzimanje dva vektora
+    function Vec sub(Vec v1, Vec v2) {
+	
+        var Vec V;
+        var Array vec1, vec2, vector3;
+        var int i, dim1, dim2, dim3;
+
+        let vec1 = v1.get_vec();
+        let vec2 = v2.get_vec();
+		
+        let dim1 = v1.get_dim();
+        let dim2 = v2.get_dim();
+
+        if(dim1 = dim2) {
+            let vector3 = Array.new(dim1);
+            
+            while(i < dim1) {
+                let vector3[i] = vec1[i] - vec2[i];
+                let i = i + 1;
+            }
+            let V = Vec.new(vector3, dim1);
+            return V;                       
+        } else {
+			do Output.printString("Vektori nisu iste duljine.");
+			return null;
+		}
+    }
+
+    
+    // norma
+    method int norm() {
+        var int elem, sum, res, i;
+        while(i < dim) {
+            let elem = vector[i];
+            let sum = sum + Math.multiply(elem, elem);
+            let i = i + 1;
+        }
+        let res = Math.sqrt(sum);
+        return res;
+    }
+    
+    
+    method void print() {
+        var int i;
+        do Output.printString("Vec: ");
+        while(i < dim) {
+            do Output.printInt(vector[i]);
+            do Output.printString(" ");
+            let i = i + 1;
+        }
+        do Output.println();
+		do Output.println();
+        return;
+    }
+	
+    method void clear() {
+        var Array newArr;
+        do vector.dispose();
+        let newArr = Array.new(dim);
+        let vector = newArr;
+        return;
+    }
+	
+	method void dispose() {
+        do vector.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+}

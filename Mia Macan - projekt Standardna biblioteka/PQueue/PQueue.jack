@@ -1,0 +1,78 @@
+class PQueue {
+    field List Q;
+
+    // stvara novi prazan red
+    constructor PQueue new() {
+        let Q = List.new();
+        return this;
+    }
+
+    // ubacuje elemente u red sortirano uzlazno
+    method void enqueue(int val) {
+        var Node N;
+        var int i;
+        let i = 0;
+
+        if (Q.size() = 0) {
+            do Q.insertFront(val);
+            return;
+        }
+        let N = Q.getHead();
+        while (i < Q.size()) {
+            if (N.getValue() > val) {
+                if (i = 0) {
+                    do Q.insertFront(val);
+                } else {
+                    do Q.insert_elem(val, i);
+                }
+                return;
+            }
+            let N = N.getNext();
+            let i = i + 1;
+        }
+        do Q.insertBack(val);
+        return;
+    }
+
+    // uklanja element s pocetka
+    method void dequeue() {
+        do Q.removeHead();
+        return;
+    }
+
+    // vraca element s pocetka bez uklanjanja
+    method int peek() {
+        var Node H;
+        if (Q.size() = 0) {
+            do Output.printString("Red je prazan!");
+            do Output.println();
+            return -1;
+        }
+        let H = Q.getHead();
+        return H.getValue();
+    }
+
+    // vraca velicinu reda
+    method int size() {
+        return Q.size();
+    }
+
+    // brise sav sadrzaj reda
+    method void clear() {
+        do Q.clear();
+        return;
+    }
+
+    // ispisuje sve elemente reda
+    method void print() {
+        do Q.print();
+        return;
+    }
+
+    // oslobada svu memoriju
+    method void dispose() {
+        do Q.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+}

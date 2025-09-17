@@ -1,0 +1,63 @@
+class Node {
+    field int data;
+    field Node left, right, parent;
+    
+    // stvara novi cvor
+    constructor Node new(int value) {
+        let data = value;
+        let left = null;
+        let right = null;
+        let parent = null;
+        return this;
+    }
+    
+    // vraca vrijednost cvora
+    method int getValue() {
+        return data;
+    }
+
+    // postavlja vrijednost cvora
+    method void setValue(int value) {
+        let data = value;
+        return;
+    }
+    
+    // postavlja lijevo dijete
+    method void setLeft(Node node) {
+        let left = node;
+        return;
+    }
+    
+    // postavlja desno dijete
+    method void setRight(Node node) {
+        let right = node;
+        return;
+    }
+    
+    // postavlja roditelja
+    method void setParent(Node node) {
+        let parent = node;
+        return;
+    }
+    
+    // vraca lijevo dijete
+    method Node getLeft() {
+        return left;
+    }
+    
+    // vraca desno dijete
+    method Node getRight() {
+        return right;
+    }
+    
+    // vraca roditelja
+    method Node getParent() {
+        return parent;
+    }
+    
+    // oslobada memoriju cvora
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+}

@@ -1,0 +1,161 @@
+class Vec {
+    field Array vector;
+    field int dim;
+
+    // stvara novi vektor s danim poljem i dimenzijom
+    constructor Vec new(Array v, int n) {
+        let vector = v;
+        let dim = n;
+        return this;
+    }
+    
+    // vraca polje vektora
+    method Array getVector() {
+        return vector;
+    }
+    
+    // vraca dimenziju vektora
+    method int getDim() {
+        return dim;
+    }
+
+    // ispisuje elemente vektora
+    method void print() {
+        var int i;
+        let i = 0;
+        do Output.printString("Vec: ");
+        while(i < dim) {
+            do Output.printInt(vector[i]);
+            do Output.printString(" ");
+            let i = i + 1;
+        }
+        do Output.println();
+        do Output.println();
+        return;
+    }
+
+    // izracunava normu vektora
+    method int norm() {
+        var int i, elem, sum;
+        let i = 0;   
+        let sum = 0; 
+        while(i < dim) {
+            let elem = vector[i];
+            let sum = sum + Math.multiply(elem, elem);
+            let i = i + 1;
+        }
+        return Math.sqrt(sum);
+    }
+    
+    // oslobada memoriju vektora
+    method void dispose() {
+        do vector.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    // zbraja dva vektora
+    function Vec add(Vec v1, Vec v2) {
+        var Vec newVec;
+        var Array v1Arr, v2Arr, newArr;
+        var int i, dim1, dim2;
+
+        let v1Arr = v1.getVector();
+        let v2Arr = v2.getVector();
+        let dim1 = v1.getDim();
+        let dim2 = v2.getDim();
+        
+        if (dim1 = dim2) {
+            let newArr = Array.new(dim1);
+            let i = 0;
+            while(i < dim1) {
+                let newArr[i] = v1Arr[i] + v2Arr[i];
+                let i = i + 1;
+            }
+            let newVec = Vec.new(newArr, dim1);
+            return newVec;
+        } else {
+            do Output.printString("Vektori moraju biti iste duljine.");
+            do Output.println();
+            return null;
+        }
+    }
+    
+    // oduzima jedan vektor od drugog
+     function Vec sub(Vec v1, Vec v2) {
+        var Vec newVec;
+        var Array v1Arr, v2Arr, newArr;
+        var int i, dim1, dim2;
+
+        let v1Arr = v1.getVector();
+        let v2Arr = v2.getVector();
+        let dim1 = v1.getDim();
+        let dim2 = v2.getDim();
+        
+        if (dim1 = dim2) {
+            let newArr = Array.new(dim1);
+            let i = 0;
+            while(i < dim1) {
+                let newArr[i] = v1Arr[i] - v2Arr[i];
+                let i = i + 1;
+            }
+            let newVec = Vec.new(newArr, dim1);
+            return newVec;
+        } else {
+            do Output.printString("Vektori moraju biti iste duljine.");
+            do Output.println();
+            return null;
+        }
+    }
+    
+    // izracunava skalarni produkt 
+    function int scalarProduct(Vec v1, Vec v2) {	
+        var Array v1Arr, v2Arr;
+        var int i, res, dim1, dim2;
+        
+        let v1Arr = v1.getVector();
+        let v2Arr = v2.getVector();
+        let dim1 = v1.getDim();
+        let dim2 = v2.getDim();
+        let res = 0;
+        
+        if (dim1 = dim2) {
+            let i = 0;
+            while(i < dim1) {
+                let res = res + Math.multiply(v1Arr[i], v2Arr[i]);
+                let i = i + 1;
+            }
+            return res;
+        } else {
+            do Output.printString("Vektori moraju biti iste duljine.");
+            do Output.println();
+            return 0;
+        }
+    }
+    
+    // izracunava vektorski produkt 
+    function Vec vecProduct(Vec v1, Vec v2) {
+        var Vec newVec;
+        var Array v1Arr, v2Arr, newArr;
+        var int dim1, dim2;
+
+        let v1Arr = v1.getVector();
+        let v2Arr = v2.getVector();
+        let dim1 = v1.getDim();
+        let dim2 = v2.getDim();
+
+        if (~(dim1 = 3) | ~(dim2 = 3)) {
+            do Output.printString("Vektorski produkt zahtijeva 3D vektore.");
+            do Output.println();
+            return null;
+        }
+        
+        let newArr = Array.new(3);
+        let newArr[0] = Math.multiply(v1Arr[1], v2Arr[2]) - Math.multiply(v1Arr[2], v2Arr[1]);
+        let newArr[1] = Math.multiply(v1Arr[2], v2Arr[0]) - Math.multiply(v1Arr[0], v2Arr[2]);
+        let newArr[2] = Math.multiply(v1Arr[0], v2Arr[1]) - Math.multiply(v1Arr[1], v2Arr[0]);
+
+        let newVec = Vec.new(newArr, 3);
+        return newVec;
+    }
+}

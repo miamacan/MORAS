@@ -1,0 +1,91 @@
+class Stack {
+	field int capacity, size;
+	field Array arr;
+	
+	// stvara novi prazan stog
+	constructor Stack new(int cap) {
+		let capacity = cap;
+		let arr = Array.new(capacity);
+		let size = 0;
+		return this;
+	}
+	
+	// dodaje element na vrh stoga
+	method void push(int value) {
+		if (size = capacity)
+		{
+			do Output.printString("Stog je pun!");
+			return;
+		}
+		let arr[size] = value;
+		let size = size + 1;
+		return;
+	}
+	
+	// uklanja i vraca element s vrha stoga
+	method int pop() {
+		var int poppedValue;
+		
+		if (size = 0) {
+			do Output.printString("Stog je prazan!");
+			do Output.println();
+			return -1;
+		}
+		
+		let size = size - 1;
+		let poppedValue = arr[size];
+		return poppedValue;
+	}
+	
+	// vraca element s vrha stoga
+	method int peek() {
+		if (size = 0) {
+			do Output.printString("Stog je prazan!");
+			do Output.println();
+			return -1;
+		}
+		return arr[size - 1];
+	}
+	
+	// vraca br. elemenata u stogu
+	method int size() {
+		return size;
+	}
+	
+	// brise sav sadrzaj stoga
+	method void clear() {
+		while (~(size() = 0))
+		{
+			do pop();
+		}
+		return;
+	}
+
+	// ispisuje sve elemente stoga
+	method void print() {
+		var int i;
+		let i = 0;
+
+		if (size = 0) {
+			do Output.printString("Stog je prazan.");
+			do Output.println();
+			return;
+		}
+
+		do Output.printString("Stog: ");
+		while (i < size) {
+			do Output.printInt(arr[i]);
+			do Output.printString(" ");
+			let i = i + 1;
+		}
+		do Output.println();
+		return;
+	}
+	
+	// oslobada svu memoriju koju stog koristi
+	method void dispose() {
+		do arr.dispose();
+		do Memory.deAlloc(this);
+		return;
+	}
+}

@@ -1,0 +1,99 @@
+class List {
+    field Node head, tail;
+    field int size;
+
+    // stvara novu praznu listu
+    constructor List new() {
+        let head = null;
+        let tail = null;
+        let size = 0;
+        return this;
+    }
+
+    // dodaje element na pocetak liste
+    method void insertFront(int value) {
+        var Node newNode;
+        let newNode = Node.new(value);
+        if (size = 0) {
+            let head = newNode;
+            let tail = newNode;
+        } else {
+            do head.setPrev(newNode);
+            do newNode.setNext(head);
+            let head = newNode;
+        }
+        let size = size + 1;
+        return;
+    }
+    
+    // dodaje element na kraj liste
+    method void insertBack(int value) {
+        var Node newNode;
+        let newNode = Node.new(value);
+        if (size = 0) {
+            let head = newNode;
+            let tail = newNode;
+        } else {
+            do tail.setNext(newNode);
+            do newNode.setPrev(tail);
+            let tail = newNode;
+        }
+        let size = size + 1;
+        return;
+    }
+
+    // vraca glavu liste
+    method Node getHead() {
+        return head;
+    }
+
+    // vraca rep liste
+    method Node getTail() {
+        return tail;
+    }
+
+    // vraca broj el. u listi
+    method int getSize() {
+        return size;
+    }
+
+    // ispisuje sve elemente liste
+    method void print() {
+        var Node current;
+        if (size = 0) {
+            do Output.printString("Lista je prazna.");
+            do Output.println();
+            return;
+        }
+        do Output.printString("Lista: ");
+        let current = head;
+        while (~(current = null)) {
+            do Output.printInt(current.getValue());
+            do Output.printString(" ");
+            let current = current.getNext();
+        }
+        do Output.println();
+        return;
+    }
+
+    // brise sve elemente liste
+    method void clear() {
+        var Node current, nextNode;
+        let current = head;
+        while (~(current = null)) {
+            let nextNode = current.getNext();
+            let current = nextNode;
+        }
+        let head = null;
+        let tail = null;
+        let size = 0;
+        return;
+    }
+
+    // oslobada svu memoriju koju lista koristi
+    method void dispose() {
+        do clear();
+        do Memory.deAlloc(this);
+        return;
+    }
+}

@@ -1,0 +1,45 @@
+class Node {
+    field int value;
+    field Node prev, next;
+    
+    // stvara novi cvor
+    constructor Node new(int val) {
+        let value = val;
+        let prev = null;
+        let next = null;
+        return this;
+    }
+    
+    // vraca vrijednost cvora
+    method int getValue() {
+        return value;
+    }
+    
+    // vraca prethodni cvor
+    method Node getPrev() {
+        return prev;
+    }
+    
+    // vraca sljedeci cvor
+    method Node getNext() {
+        return next;
+    }
+    
+    // postavlja prethodni cvor
+    method void setPrev(Node val) {
+        let prev = val;
+        return;
+    }
+    
+    // postavlja sljedeci cvor
+    method void setNext(Node val) {
+        let next = val;
+        return;
+    }
+    
+    // oslobada memoriju cvora
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+}

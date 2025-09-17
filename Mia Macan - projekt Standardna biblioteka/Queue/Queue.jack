@@ -1,0 +1,110 @@
+class Queue {
+    field Array arr;
+    field int head, tail, size, capacity;
+    
+    // stvara novi prazan red
+    constructor Queue new(int cap) {
+        let arr = Array.new(cap);
+        let head = 0;
+        let tail = 0;
+        let size = 0;
+        let capacity = cap;
+        return this;
+    }
+    
+    // dodaje element na kraj reda
+    method void enqueue(int value) {
+        var Array newArr;
+        var int i;
+
+        if (size = capacity) {
+            let newArr = Array.new(capacity * 2);
+            let i = 0;
+            while (i < size) {
+                let newArr[i] = arr[(head + i) & (capacity - 1)];
+                let i = i + 1;
+            }
+            do arr.dispose();
+            let arr = newArr;
+            let head = 0;
+            let tail = size;
+            let capacity = capacity * 2;
+        }
+
+        let arr[tail] = value;
+        let tail = (tail + 1) & (capacity - 1);
+        let size = size + 1;
+        return;
+    }
+    
+    // uklanja i vraca element s pocetka reda
+    method int dequeue() {
+        var int dequeuedValue;
+
+        if (size = 0) {
+            do Output.printString("Red je prazan!");
+            do Output.println();
+            return -1;
+        }
+        
+        let dequeuedValue = arr[head];
+        let head = (head + 1) & (capacity - 1);
+        let size = size - 1;
+        return dequeuedValue;
+    }
+    
+    // vraca element s pocetka reda
+    method int peek() {
+        if (size = 0) {
+            do Output.printString("Red je prazan!");
+            do Output.println();
+            return -1;
+        }
+        return arr[head];
+    }
+    
+    // vraca br. elemenata u redu
+    method int size() {
+        return size;
+    }
+    
+    // ispisuje sve elemente reda
+    method void print() {
+        var int i;
+        var int printIndex;
+
+        if (size = 0) {
+            do Output.printString("Red je prazan.");
+            do Output.println();
+            return;
+        }
+
+        do Output.printString("Red: ");
+        let i = 0;
+        while (i < size) {
+            let printIndex = (head + i) & (capacity - 1);
+            do Output.printInt(arr[printIndex]);
+            do Output.printString(" ");
+            let i = i + 1;
+        }
+        do Output.println();
+        return;
+    }
+
+    // brise sav sadrzaj reda
+    method void clear() {
+        do arr.dispose();
+        let size = 0;
+        let head = 0;
+        let tail = 0;
+        let arr = Array.new(capacity);
+        return;
+    }
+    
+    // oslobada svu memoriju koju red koristi
+    method void dispose() {
+        do arr.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+}

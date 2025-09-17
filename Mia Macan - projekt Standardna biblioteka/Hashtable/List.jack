@@ -1,0 +1,108 @@
+class List {
+    field Node head, tail;
+    field int size;
+
+    // konstruktor
+    constructor List new() {
+        let head = null;
+        let tail = null;
+        let size = 0;
+        return this;
+    }
+
+    // dodaje element naprijed
+    method void insertFront(int val) {
+        var Node cvor;
+        let cvor = Node.new(val);
+
+        if (head = null) {
+            let head = cvor;
+            let tail = cvor;
+        } else {
+            do head.setPrev(cvor);
+            do cvor.setNext(head);
+            do cvor.setPrev(null);
+            let head = cvor;
+        }
+        let size = size + 1;
+        return;
+    }
+
+    // dodaje element na kraj
+    method void insertBack(int val) {
+        var Node cvor;
+        let cvor = Node.new(val);
+
+        if (tail = null) {
+            let head = cvor;
+            let tail = cvor;
+        } else {
+            do tail.setNext(cvor);
+            do cvor.setNext(null);
+            do cvor.setPrev(tail);
+            let tail = cvor;
+        }
+        let size = size + 1;
+        return;
+    }
+
+    // vraca velicinu
+    method int getsize() {
+        return size;
+    }
+
+    // vraca head
+    method Node getHead() {
+        return head;
+    }
+
+    // vraca tail
+    method Node getTail() {
+        return tail;
+    }
+
+    // brisanje svih cvorova
+    method void clear() {
+        var Node cvor, temp;
+        let cvor = tail;
+
+        while (~(cvor = null)) {
+            let temp = cvor.getPrev();
+            do cvor.dispose();
+            let cvor = temp;
+        }
+        let head = null;
+        let tail = null;
+        return;
+    }
+
+    method void print(int value) {
+        var Node cvor;
+        do Output.printString("indeks ");
+        do Output.printInt(value);
+        do Output.printString(": ");
+
+        let cvor = head;
+
+        while (~(cvor = null)) {
+            do Output.printInt(cvor.getValue());
+            do Output.printString(" ");
+            let cvor = cvor.getNext();
+        }
+        do Output.println();
+        return;
+    }
+
+    method void dispose() {
+        var Node cvor, temp;
+        let cvor = tail;
+
+        while (~(cvor = null)) {
+            let temp = cvor.getPrev();
+            do cvor.dispose();
+            let cvor = temp;
+        }
+        do Memory.deAlloc(this);
+        return;
+    }
+}

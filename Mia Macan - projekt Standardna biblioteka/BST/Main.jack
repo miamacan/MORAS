@@ -1,0 +1,40 @@
+class Main {
+    function void main() {
+        var BST bst;
+        var Node foundNode;
+
+        let bst = BST.new();
+        do bst.insert(1);
+        do bst.insert(2);
+        do bst.insert(3);
+        do bst.insert(4);
+        do bst.insert(5);
+        do bst.print();
+
+        do Output.printString("Trazim element: 3.");
+        do Output.println();
+        let foundNode = bst.search(3);
+        if (~(foundNode = null)) {
+            do Output.printString("Pronasli sam element: ");
+            do Output.printInt(foundNode.getValue());
+            do Output.println();
+        }
+        do Output.println();
+
+        do Output.printString("Brisem element: 2.");
+        do Output.println();
+        do bst.delete(2);
+        do bst.print();
+        do Output.println();
+        
+        do Output.printString("Brisem cijelo stablo.");
+        do Output.println();
+        do bst.clear();
+        do bst.print();
+        do Output.println();
+
+        do bst.dispose();
+        
+        return;
+    }
+}

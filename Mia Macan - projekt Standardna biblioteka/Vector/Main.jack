@@ -1,0 +1,33 @@
+class Main {
+    function void main() {
+        var Vector v;
+        
+        let v = Vector.new();
+        do v.pushBack(10);
+        do v.pushBack(20);
+        do v.pushBack(30);
+        do v.pushBack(40);
+
+        do v.print();
+        do Output.println();
+
+        do Output.printString("Element na indeksu 1 je: ");
+        do Output.printInt(v.get(1));
+        do Output.println();
+
+        do Output.printString("Postavljam broj 27 na indeks 2.");
+        do Output.println();
+        do v.set(2, 27);
+        do v.print();
+        do Output.println();
+
+        do Output.printString("Brisem sve elemente.");
+        do Output.println();
+        do v.clear();
+        do v.print();
+        do Output.println();
+        do v.dispose();
+        
+        return;
+    }
+}

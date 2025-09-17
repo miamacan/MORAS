@@ -1,0 +1,67 @@
+class Main {
+    function void main() {
+        var Array vArr1, vArr2, vArr3, vArr4, mArr1, mArr2;
+        var Vec v1, v2, v3, v4, vRes, vProdVec;
+        var Mat m1, m2, mRes, mTransposed;
+        var int intRes;
+
+        let vArr1 = Array.new(2);
+        let vArr1[0] = 3; 
+        let vArr1[1] = 4;
+        let v1 = Vec.new(vArr1, 2);
+
+        let mArr1 = Array.new(4);
+        let mArr1[0] = 1; let mArr1[1] = 2;
+        let mArr1[2] = 3; let mArr1[3] = 4;
+        let m1 = Mat.new(mArr1, 2, 2);
+
+        let mArr2 = Array.new(4);
+        let mArr2[0] = 5; let mArr2[1] = 6;
+        let mArr2[2] = 7; let mArr2[3] = 8;
+        let m2 = Mat.new(mArr2, 2, 2);
+        do Output.println();
+
+        let mRes = Mat.add(m1, m2);
+        do Output.printString("Zbrajanje (m1 + m2):"); 
+        do Output.println();
+        do mRes.print();
+        do mRes.dispose();
+
+        let mRes = Mat.prodMat(m1, m2);
+        do Output.printString("Mnozenje (m1 * m2):"); 
+        do Output.println(); 
+        do mRes.print(); 
+        do mRes.dispose();
+        
+        do Output.println();
+
+        let vProdVec = Mat.prodVec(m1, v1);
+        do Output.printString("Mnozenje matrice s vektorom (m1 * v1):"); 
+        do Output.println(); 
+        do vProdVec.print(); 
+        do vProdVec.dispose();
+        do Output.println();
+
+        let intRes = m1.det();
+        do Output.printString("Determinanta m1: "); 
+        do Output.printInt(intRes); 
+        do Output.println();
+
+        let intRes = m1.trace();
+        do Output.printString("Trag m1: "); 
+        do Output.printInt(intRes); 
+        do Output.println();
+
+        let mTransposed = m1.tr();
+        do Output.printString("Transponirana m1:"); do Output.println(); 
+        do mTransposed.print(); 
+        do mTransposed.dispose();
+        do Output.println();
+
+        do Output.println();
+        do m1.dispose(); 
+        do m2.dispose();
+        
+        return;
+    }
+}

@@ -1,0 +1,44 @@
+class Main {
+    function void main() {
+        var Queue q;
+        var int val;
+
+        let q = Queue.new(16);
+        do q.enqueue(1);
+        do q.enqueue(2);
+        do q.enqueue(3);
+        do q.enqueue(4);
+        do q.enqueue(5);
+        do q.enqueue(6);
+        do q.print();
+
+        do Output.printString("Micem 2 elementa:");
+        do Output.println();
+        let val = q.dequeue();
+        do Output.printInt(val);
+        do Output.printString(" ");
+        let val = q.dequeue();
+        do Output.printInt(val);
+        do Output.println();
+        do q.print();
+        
+        do Output.printString("Dodajem elemente 7 i 8.");
+        do Output.println();
+        do q.enqueue(7);
+        do q.enqueue(8);
+        do q.print();
+
+        do Output.printString("Element na vrhu: ");
+        do Output.printInt(q.peek());
+        do Output.println();
+        
+        do Output.printString("Brisem red.");
+        do Output.println();
+        do q.clear();
+        do q.print();
+        
+        do q.dispose();
+        
+        return;
+    }
+}

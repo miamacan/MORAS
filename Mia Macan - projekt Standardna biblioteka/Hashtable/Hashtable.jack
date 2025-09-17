@@ -1,0 +1,81 @@
+class Hashtable {
+    field Array table;
+    field int size;
+
+    // stvara praznu tablicu
+    constructor Hashtable new(int m) {
+        var int i;
+        var List chain;
+        let size = m;
+        let table = Array.new(m);
+
+        while (i < m) {
+            let chain = List.new();
+            let table[i] = chain;
+            let i = i + 1;
+        }
+        return this;
+    }
+
+    // hash funkcija
+    method int hash(int k) {
+        var int temp;
+        let temp = k;
+
+        while (~(temp < size)) {
+            let temp = temp - size;
+        }
+        return temp;
+    }
+
+    // dohvaca podatke u tablici na danom indeksu
+    method void get(int index) {
+        var List l;
+
+        if (~(index < size)) {
+            do Output.printString("Nemoguce. Indeks je veci od size.");
+            do Output.println();
+        } else {
+            let l = table[index];
+            do l.print(index);
+        }
+        return;
+    }
+
+    // postavlja vrijednosti
+    method void set(int val) {
+        var List chain;
+        var int elem;
+
+        let elem = hash(val);
+        let chain = table[elem];
+        do chain.insertBack(val);
+        return;
+    }
+
+    method void print() {
+        var int i;
+        var List l;
+
+        while (i < size) {
+            let l = table[i];
+            do l.print(i);
+            let i = i + 1;
+        }
+        return;
+    }
+
+    method void dispose() {
+        var int i;
+        var List ch;
+
+        while (i < size) {
+            let ch = table[i];
+            do ch.dispose();
+            let i = i + 1;
+        }
+        do table.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+}

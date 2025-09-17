@@ -1,0 +1,38 @@
+class Main {
+	function void main() {
+		var PQueue pq;
+		var int val;
+
+		let pq = PQueue.new();
+
+		do Output.println();
+		do pq.enqueue(14);
+		do pq.enqueue(11);
+		do pq.enqueue(19);
+		do pq.enqueue(16);
+		do pq.enqueue(5);
+		do pq.print();
+
+		do Output.printString("Uklanjam element s najvisim prioritetom:");
+		do Output.println();
+		do pq.dequeue();
+		do pq.print();
+
+		do Output.printString("Element s najvisim prioritetom: ");
+		do Output.printInt(pq.peek());
+		do Output.println();
+		do Output.println();
+		
+		do Output.printString("Velicina reda: ");
+		do Output.printInt(pq.size());
+		do Output.println();
+
+		do Output.printString("Brisem red.");
+		do Output.println();
+		do pq.clear();
+		
+		do pq.dispose();
+		
+		return;
+	}
+}

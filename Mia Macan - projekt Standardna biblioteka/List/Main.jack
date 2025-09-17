@@ -1,0 +1,39 @@
+class Main {
+    function void main() {
+        var List l;
+        var Node headNode, tailNode;
+        var int listSize;
+
+        let l = List.new();
+        do l.insertBack(10);
+        do l.insertBack(20);
+        do l.insertFront(5);
+        do l.insertFront(1);
+        do l.print();
+
+        let headNode = l.getHead();
+        let tailNode = l.getTail();
+        do Output.printString("Glava liste: ");
+        do Output.printInt(headNode.getValue());
+        do Output.println();
+        do Output.printString("Rep liste: ");
+        do Output.printInt(tailNode.getValue());
+        do Output.println();
+        do Output.println();
+
+        let listSize = l.getSize();
+        do Output.printString("Velicina liste: ");
+        do Output.printInt(listSize);
+        do Output.println();
+        do Output.println();
+
+        do Output.printString("Brisem sve elemente.");
+        do Output.println();
+        do l.clear();
+        do l.print();
+        
+        do l.dispose();
+        
+        return;
+    }
+}

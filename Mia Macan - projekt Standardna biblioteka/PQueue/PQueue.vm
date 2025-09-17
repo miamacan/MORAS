@@ -1,0 +1,175 @@
+function PQueue.new 0
+push constant 1
+call Memory.alloc 1
+pop pointer 0
+call List.new 0
+pop this 0
+push pointer 0
+return
+function PQueue.enqueue 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 1
+push this 0
+call List.size 1
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
+push argument 1
+call List.insertFront 2
+pop temp 0
+push constant 0
+return
+label IF_FALSE0
+push this 0
+call List.getHead 1
+pop local 0
+label WHILE_EXP0
+push local 1
+push this 0
+call List.size 1
+lt
+not
+if-goto WHILE_END0
+push local 0
+call Node.getValue 1
+push argument 1
+gt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 1
+push constant 0
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 0
+push argument 1
+call List.insertFront 2
+pop temp 0
+goto IF_END2
+label IF_FALSE2
+push this 0
+push argument 1
+push local 1
+call List.insert_elem 3
+pop temp 0
+label IF_END2
+push constant 0
+return
+label IF_FALSE1
+push local 0
+call Node.getNext 1
+pop local 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+push this 0
+push argument 1
+call List.insertBack 2
+pop temp 0
+push constant 0
+return
+function PQueue.dequeue 0
+push argument 0
+pop pointer 0
+push this 0
+call List.removeHead 1
+pop temp 0
+push constant 0
+return
+function PQueue.peek 1
+push argument 0
+pop pointer 0
+push this 0
+call List.size 1
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 14
+call String.new 1
+push constant 82
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 100
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 106
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 112
+call String.appendChar 2
+push constant 114
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 122
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 110
+call String.appendChar 2
+push constant 33
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push constant 1
+neg
+return
+label IF_FALSE0
+push this 0
+call List.getHead 1
+pop local 0
+push local 0
+call Node.getValue 1
+return
+function PQueue.size 0
+push argument 0
+pop pointer 0
+push this 0
+call List.size 1
+return
+function PQueue.clear 0
+push argument 0
+pop pointer 0
+push this 0
+call List.clear 1
+pop temp 0
+push constant 0
+return
+function PQueue.print 0
+push argument 0
+pop pointer 0
+push this 0
+call List.print 1
+pop temp 0
+push constant 0
+return
+function PQueue.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call List.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
