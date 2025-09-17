@@ -1,0 +1,94 @@
+class Set {
+    field Vector data;
+    field int size;
+
+    // stvara novi prazan vektor
+    constructor Set new() {
+        let data = Vector.new();
+        let size = 0;
+        return this;
+    }
+	
+    // ispisuje broj el. u skupu
+    method int size(){
+        return data.size();
+    }
+
+	// provjerava jel el. u skupu
+    method bool exists(int elem) {
+        var int pos;
+        let pos = elemPos(elem);
+
+        if(pos = -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    // dodavanje elementa
+    method void insert(int elem){
+        if (~(exists(elem))){
+            do data.pushBack(elem);
+            let size = size + 1;
+        }else{
+            do Output.printString("Element vec postoji u skupu.");
+            do Output.println();
+        }
+        return;
+    }
+
+    // brise el.
+    method void delete(int elem) {
+        var int pos, lastElem, vectorSize;
+        let pos = elemPos(elem);
+		
+        if(pos = -1) {
+            do Output.printString("Element ne postoji u skupu.");
+            do Output.println();
+        } else {
+            let vectorSize = data.size();
+            let lastElem = data.get(vectorSize - 1);
+            do data.set(pos, lastElem);
+            do data.size_minus_1();
+            let size = size - 1;
+        }
+        return;
+    }
+	
+	// brise sve el.
+    method void clear() {
+        do data.clear();
+        let size = 0;
+        return;
+    }
+	
+    // ispisuje sve el.
+    method void print() {
+        do data.print();
+        return;
+    }
+
+    // brisanje iz memorije
+    method void dispose() {
+        do data.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+	
+	// vraca indeks trazenog elementa
+    method int elemPos(int elem) {
+        var int i, ssize, temp;
+        let i = 0;
+        let ssize = data.size();
+
+        while(i < ssize) {
+            let temp = data.get(i);
+            if(elem = temp) {
+                return i;
+            }
+            let i = i + 1;
+        }
+        return -1;
+    }
+}
