@@ -180,7 +180,7 @@ class Mat {
 
         let r = m.getRows();
         let c = m.getCols();
-        let dim = v.get_dim(); // Promijenjeno iz getDim() u get_dim()
+        let dim = v.get_dim(); 
 
         if (~(c = dim)) {
             do Output.printString("Broj stupaca matrice mora biti jednak dimenziji vektora.");
@@ -189,7 +189,7 @@ class Mat {
         }
 
         let mArr = m.getMatrix();
-        let vArr = v.get_vec(); // Promijenjeno iz getVector() u get_vec()
+        let vArr = v.get_vec(); 
         let newArr = Array.new(r);
         let i = 0;
         while(i < r) {
@@ -241,4 +241,5 @@ class Mat {
         do Memory.deAlloc(this);
         return;
     }
+
 }
